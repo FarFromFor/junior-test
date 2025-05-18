@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./napojse_test/www:/var/www/html
+    depends_on:
+      - php
+    links:
+      - php:php
+    networks:
+      - mynetwork
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./napojse_test:/var/www/html/napojse_test
+    networks:
+      - mysql
+      - mynetwork
+    ports:
+      - "8082:9001"
+
+  mariadb:
+    image: mariadb:11.4.2
+    networks:
+      - mysql
+    volumes:
+      - ~/Data/mariadb-data:/var/lib/mysql
+      - ~/Data/mariadb-log:/var/log/mysql
+    ports:
+      - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: 12345
+
+networks:
+  mysql:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mysql_data:

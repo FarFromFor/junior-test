@@ -1,0 +1,4 @@
+napojse_test/log/*
+napojse_test/temp/*
+napojse_test/vendor/*
+.idea

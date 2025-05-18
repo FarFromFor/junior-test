@@ -1,0 +1,31 @@
+{block content}
+    <div id="banner">
+        <h1 n:block=title>Register</h1>
+    </div>
+
+    <div id="content">
+        {form registrationForm}
+            <div>
+                {label fullName /}
+                {input fullName}
+            </div>
+            <div>
+                {label email /}
+                {input email}
+            </div>
+            <div>
+                {label password /}
+                {input password}
+            </div>
+            <div>
+                {label passwordVerify /}
+                {input passwordVerify}
+            </div>
+
+            <div class="submit_button">
+                {input send}
+            </div>
+        {/form}
+        <p><a href="{plink default}">Back to main page</a></p>
+    </div>
+{/block}

@@ -1,0 +1,65 @@
+parameters:
+
+application:
+	errorPresenter:
+		4xx: Error:Error4xx
+		5xx: Error:Error5xx
+	mapping: App\UI\*\**Presenter
+
+
+database:
+	dsn: 'mysql:host=mariadb;dbname=napojse_test;charset=utf8mb4'
+	user: root
+	password: "12345"
+
+
+latte:
+	strictTypes: yes
+	strictParsing: yes
+	extensions:
+		- App\UI\Accessory\LatteExtension
+
+
+di:
+	export:
+		parameters: no
+		tags: no
+
+services:
+    - App\Core\RouterFactory::createRouter
+    - App\Form\FormFactory
+
+search:
+    forms:
+        in: %appDir%/Service
+        extends:
+
+extensions:
+    console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+    nettrine.migrations: Nettrine\Migrations\DI\MigrationsExtension
+    nettrine.annotations: Nettrine\Annotations\DI\AnnotationsExtension
+    nettrine.dbal: Nettrine\DBAL\DI\DbalExtension
+    nettrine.dbal.console: Nettrine\DBAL\DI\DbalConsoleExtension
+    nettrine.orm: Nettrine\ORM\DI\OrmExtension
+    nettrine.orm.annotations: Nettrine\ORM\DI\OrmAnnotationsExtension
+    nettrine.orm.console: Nettrine\ORM\DI\OrmConsoleExtension
+    nettrine.cache: Nettrine\Cache\DI\CacheExtension
+
+nettrine.orm.annotations:
+    mapping:
+        App\Entity: %appDir%/Entity # Adresar kde to zacne hladat entity
+
+nettrine.migrations:
+    directory: %appDir%/Migrations
+    versionsOrganization: null
+
+nettrine.dbal:
+    debug:
+        panel: %debugMode%
+    connection:
+        driver: pdo_mysql
+        host: mariadb
+        user: root
+        password: 12345
+        dbname: napojse_test
+        charset: utf8mb4

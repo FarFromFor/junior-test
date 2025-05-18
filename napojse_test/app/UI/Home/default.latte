@@ -1,0 +1,24 @@
+{block content}
+    <div id="banner">
+        <h1 n:block=title>Users</h1>
+    </div>
+
+    <div id="content">
+        <table class="table">
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Attempts Count</th>
+            </tr>
+
+            {foreach $users as $u}
+                <tr>
+                    <td>{$u->full_name}</td>
+                    <td>{$u->email}</td>
+                    <td>0</td>
+                </tr>
+            {/foreach}
+        </table>
+        <p><a href="{plink create}">Create new user</a></p>
+    </div>
+{/block}

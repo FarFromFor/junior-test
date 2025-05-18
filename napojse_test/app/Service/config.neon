@@ -1,0 +1,5 @@
+search:
+    repositories:
+        in: %appDir%/Modules
+        extends:
+            - App\Service\AbstractRepository
