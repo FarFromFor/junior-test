@@ -17,7 +17,7 @@ class User extends AbstractEntity
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      */
     private string $email;
 
