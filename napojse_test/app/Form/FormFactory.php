@@ -3,17 +3,15 @@
 namespace App\Form;
 
 use Nette\Application\UI\Form;
-use Nette\Database\Explorer;
 
 class FormFactory
 {
     public function __construct(
-        private Explorer $explorer,
     )
     {
     }
 
-    public function createForm(): Form
+    public function createUserForm(): Form
     {
         $form = new Form;
 
@@ -23,9 +21,6 @@ class FormFactory
 
         $form->addEmail('email', 'E-mail:')
             ->setRequired('Insert email')
-            ->addRule(function ($email) {
-                return !$this->explorer->table('user')->where('email', $email->value)->fetch();
-            }, 'User with such e-mail already exists.')
             ->setHtmlAttribute('placeholder', 'myemail@example.com...');
 
         $form->addPassword('password', 'Password:')

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-class FormData{
+class UserFormData{
     public string $fullName;
     public string $email;
     public string $password;

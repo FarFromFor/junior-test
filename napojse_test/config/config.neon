@@ -28,6 +28,7 @@ di:
 services:
     - App\Core\RouterFactory::createRouter
     - App\Form\FormFactory
+    - App\Service\UserService
 
 search:
     forms:
