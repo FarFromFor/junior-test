@@ -2,16 +2,24 @@
 
 namespace App\Form;
 
+use App\Service\UserService;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\Control;
 
-class FormFactory
+class RegistrationForm extends Control
 {
     public function __construct(
+        private UserService $userService
     )
     {
     }
 
-    public function createUserForm(): Form
+    public function render(): void
+    {
+        $this->template->render(__DIR__ . '/registrationForm.latte');
+    }
+
+    public function createComponentForm(): Form
     {
         $form = new Form;
 
@@ -33,6 +41,14 @@ class FormFactory
 
         $form->addSubmit('send', 'Register');
 
+        $form->onSuccess[] = [$this, 'formSucceeded'];
+
         return $form;
+    }
+
+    public function formSucceeded(Form $form, UserFormData $data): void
+    {
+        $this->userService->save($data);
+        $this->getPresenter()->redirect('default');
     }
 }

@@ -27,7 +27,7 @@ di:
 
 services:
     - App\Core\RouterFactory::createRouter
-    - App\Form\FormFactory
+    - App\Form\RegistrationForm
     - App\Service\UserService
 
 search:

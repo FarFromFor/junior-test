@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\UI\Home;
 
-use App\Form\UserFormData;
-use App\Form\FormFactory;
+use App\Form\RegistrationForm;
 use App\Service\UserService;
 use Nette;
-use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
 final class HomePresenter extends Nette\Application\UI\Presenter
 {
     public function __construct(
-        private Explorer    $explorer,
-        private FormFactory $formFactory,
-        private UserService $userService
+        private Explorer         $explorer,
+        private UserService     $userService,
     )
     {
         parent::__construct();
@@ -31,17 +28,9 @@ final class HomePresenter extends Nette\Application\UI\Presenter
     {
     }
 
-    protected function createComponentRegistrationForm(): Form
+    protected function createComponentRegistrationForm(): RegistrationForm
     {
-        $form = $this->formFactory->createUserForm();
-        $form->onSuccess[] = [$this, 'formSucceeded'];
-        return $form;
+        return new RegistrationForm($this->userService);
     }
 
-    public function formSucceeded(Form $form, UserFormData $data): void
-    {
-        $this->userService->save($data);
-//        $this->flashMessage('Success');
-        $this->redirect('default');
-    }
 }
